@@ -35,9 +35,14 @@ class SearchResultActivity : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call<GitHubSearchResult>?, response: Response<GitHubSearchResult>?) {
-                    val searchResult = response?.body()
-                    if (searchResult != null){
-                        listRepos(searchResult!!.items)
+                    if(response?.body()?.total_count == 0){
+                        val theView = this@SearchResultActivity.findViewById<View>(android.R.id.content)
+                        Snackbar.make(theView, "Repos not found :( Give it another try!", Snackbar.LENGTH_LONG).show()
+                    } else {
+                        val searchResult = response?.body()
+                        if (searchResult != null) {
+                            listRepos(searchResult!!.items)
+                        }
                     }
                 }
             }

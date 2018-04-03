@@ -20,7 +20,7 @@ interface GitHubService{
     fun userRepos(@Path("user") username: String) : Call<List<Repo>>
 }
 
-class GitHubSearchResult(val items: List<Repo>)
+class GitHubSearchResult(val total_count: Int, val items: List<Repo>)
 class Repo(val full_name: String, val owner: GitHubUser, val html_url: String)
 class GitHubUser(val avatar_url: String)
 
