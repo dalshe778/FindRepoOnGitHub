@@ -7,6 +7,7 @@ import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
+import com.example.lisa.findrepo.Screens.SearchScreen
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,10 +26,10 @@ class EspressoTests {
         //To check that default search parameter is equal to "Fuel"
         //when user clicks on search button without typing anything
         //and return back to the main screen
-        onView(withId(R.id.searchEditText))
-                .perform(clearText())
-        onView(withId(R.id.searchButton))
-                .perform(click())
+        val searchScreen = SearchScreen()
+        searchScreen.clearRepoSearch()
+        searchScreen.clickOnSearchRepo()
+
         Thread.sleep(10000)
 
         pressBack()
