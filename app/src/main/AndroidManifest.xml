@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchResultActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="eba7aa5f56c4b495628a14a4388aa6476fbd4c2d" />
     </application>
 
 </manifest>
