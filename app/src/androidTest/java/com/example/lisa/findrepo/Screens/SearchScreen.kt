@@ -2,6 +2,7 @@ package com.example.lisa.findrepo.Screens
 
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
+import android.support.test.espresso.action.ViewActions.typeText
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.uiautomator.UiSelector
 import com.example.lisa.findrepo.R
@@ -21,14 +22,20 @@ class SearchScreen: BaseScreen() {
     fun clearRepoSearch(){
         searchRepoField.perform(ViewActions.clearText())
     }
-    fun clickOnSearchRepo(){
+    fun clickOnSearchRepo(): SearchResultScreen {
         searchRepoButton.perform(ViewActions.click())
+        return SearchResultScreen()
     }
     fun clearUserSearch(){
         searchUserField.perform(ViewActions.clearText())
     }
-    fun clickOnUserSearch(){
+    fun clickOnUserSearch(): SearchResultScreen {
         searchUserButton.perform(ViewActions.click())
+        return SearchResultScreen()
+    }
+
+    fun setRepoText(string: String){
+        searchRepoField.perform(typeText(string))
     }
 
 
