@@ -7,6 +7,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.example.lisa.findrepo.Screens.SearchScreen
+import junit.framework.Assert
 import org.hamcrest.Matchers.anything
 import org.junit.Rule
 import org.junit.Test
@@ -25,19 +26,18 @@ class EspressoTests: BaseTest() {
     @Test
     fun checkDefaultSearchRepoTerm() {
         //To check that default search parameter is equal to "Fuel"
-        //when user clicks on search button without typing anything
         //and return back to the main screen
         val searchScreen = SearchScreen()
         searchScreen.clearRepoSearch()
         val searchResultScreen = searchScreen.clickOnSearchRepo()
         Thread.sleep(5000)
-
+        val numberOfItems = searchResultScreen.numberOfItems()
+        val randomNumber = Random().nextInt(numberOfItems)
+        val randomRepo = searchResultScreen.repoByIndex(randomNumber)
+        val randomRepoName = randomRepo.repoName
+        //assert
         pressBack()
 
-        //Choose random repo from the list and assert that the name contains 'fuel'
-        //onData(anything()).inAdapterView(withId(R.id.repoListView)).atPosition(0).perform(click())
-
-        //pressBack()
     }
 
     @Test
@@ -46,14 +46,17 @@ class EspressoTests: BaseTest() {
         //and return back to the screen with search results
         val searchScreen = SearchScreen()
         searchScreen.clearRepoSearch()
-        val newSearch = "kotlin"
+        val newSearch = "findrepo"
         searchScreen.setRepoText(newSearch)
         val searchResultScreen = searchScreen.clickOnSearchRepo()
         Thread.sleep(5000)
         val numberOfItems = searchResultScreen.numberOfItems()
         val randomNumber = Random().nextInt(numberOfItems)
-        searchResultScreen.clickOnItem(randomNumber)
-        //Assert
+        val gitHubScreen = searchResultScreen.clickOnItem(randomNumber)
+        val urlBar = gitHubScreen.urlBar
+        Assert.assertTrue("Browser screen is not displayed", urlBar.waitForExists(5000))
         uiDevice.pressBack()
     }
+
+
 }
