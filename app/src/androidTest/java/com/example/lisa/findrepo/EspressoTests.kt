@@ -28,11 +28,11 @@ class EspressoTests: BaseTest() {
         val searchScreen = SearchScreen()
         searchScreen.clearRepoSearch()
         val searchResultScreen = searchScreen.clickOnSearchRepo()
-        Thread.sleep(5000)
+        Thread.sleep(3000)
         val numberOfItems = searchResultScreen.numberOfItems()
-        val randomNumber = Random().nextInt(numberOfItems)
+        val randomNumber = Random().nextInt(numberOfItems-1)
         val randomRepo = searchResultScreen.repoByIndex(randomNumber)
-        val randomRepoName = randomRepo.repoName
+        val randomRepoName = randomRepo.adjustRepoName()
         Assert.assertTrue("Repo name doesn't contain fuel", randomRepoName.contains("fuel"))
         pressBack()
     }
@@ -46,9 +46,9 @@ class EspressoTests: BaseTest() {
         val newSearch = "findrepo"
         searchScreen.setRepoText(newSearch)
         val searchResultScreen = searchScreen.clickOnSearchRepo()
-        Thread.sleep(10000)
+        Thread.sleep(5000)
         val numberOfItems = searchResultScreen.numberOfItems()
-        val randomNumber = Random().nextInt(numberOfItems)
+        val randomNumber = Random().nextInt(numberOfItems-1)
         val gitHubScreen = searchResultScreen.clickOnItem(randomNumber)
         val urlBar = gitHubScreen.urlBar
         Assert.assertTrue("Browser screen is not displayed", urlBar.waitForExists(5000))
@@ -66,7 +66,7 @@ class EspressoTests: BaseTest() {
         val newUserSearch = "lisalogvinova"
         searchScreen.setUserText(newUserSearch)
         val searchResultScreen = searchScreen.clickOnUserSearch()
-        Thread.sleep(5000)
+        Thread.sleep(3000)
         pressBack()
         searchScreen.clearUserSearch()
         val hint = "View User's Repos"

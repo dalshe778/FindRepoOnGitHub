@@ -41,5 +41,9 @@ class SearchResultScreen: BaseScreen(){
 
 class RepoItem(private val itemObject: UiObject) {
     private val nameSelector = UiSelector().resourceId("com.example.lisa.findrepo:id/repoTextView")
-    public val repoName = itemObject.getChild(nameSelector).text
+    private val repoName = itemObject.getChild(nameSelector).text
+
+    fun adjustRepoName(): String {
+        return repoName.toLowerCase()
+    }
 }
